@@ -8,7 +8,7 @@ import com.github.gumtreediff.tree.ITree;
 
 /**
  * Hierarchical code change actions of GumTree results
- * 
+ * 记录作者自定义的ast变更动作的action
  * @author kui.liu
  *
  */

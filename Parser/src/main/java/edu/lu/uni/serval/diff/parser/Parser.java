@@ -17,13 +17,13 @@ import edu.lu.uni.serval.gumtree.regroup.SimplifyTree;
 
 /**
  * Parse code change diffs with GumTree.
- * 
+ * 抽象类
  * @author kui.liu
  *
  */
 public abstract class Parser implements ParserInterface {
 	
-	protected String astEditScripts = "";     // it will be used for fix patterns mining.
+	protected String astEditScripts = "";     // it will be used for fix patterns mining.AST编辑脚本
 	protected String patchesSourceCode = "";  // testing
 	protected String buggyTrees = "";         // Compute similarity for bug localization.
 	protected String sizes = "";              // fix patterns' selection before mining.
@@ -34,9 +34,12 @@ public abstract class Parser implements ParserInterface {
 	public abstract void parseCodeChangeDiffs(File prevFile, File revFile, File diffEntryFile);
 	
 	protected List<HierarchicalActionSet> parseChangedSourceCodeWithGumTree(File prevFile, File revFile) {
-		List<HierarchicalActionSet> actionSets = new ArrayList<>();
+		List<HierarchicalActionSet> actionSets = new ArrayList<>();//用自定义的HierarchicalActionSet来存储diff结果
 		// GumTree results
-		List<Action> gumTreeResults = new GumTreeComparer().compareTwoFilesWithGumTree(prevFile, revFile);
+		/**
+		 * 使用gumtree来获取ast编辑节点
+		 * */
+		List<Action> gumTreeResults = new GumTreeComparer().compareTwoFilesWithGumTree(prevFile, revFile);  
 		if (gumTreeResults != null && gumTreeResults.size() > 0) {
 			// Regroup GumTre results.
 			List<HierarchicalActionSet> allActionSets = new HierarchicalRegrouper().regroupGumTreeResults(gumTreeResults);

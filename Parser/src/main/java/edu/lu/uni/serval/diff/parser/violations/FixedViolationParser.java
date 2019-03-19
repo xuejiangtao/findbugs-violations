@@ -20,7 +20,7 @@ import edu.lu.uni.serval.violation.code.parser.ViolationSourceCodeTree;
 
 /**
  * Parse diffs of fixed violations with GumTree.
- * 
+ * 对获取的diff进行编译,继承了Parse
  * @author kui.liu
  *
  */
@@ -124,7 +124,7 @@ public class FixedViolationParser extends Parser {
 				 *  Get the parent range of a violation.
 				 *  Read DiffEntries with this range to get the start line and end line of a violation.
 				 */
-				ViolationSourceCodeTree alarmTree = new ViolationSourceCodeTree(prevFile, startLine, endLine);
+				ViolationSourceCodeTree alarmTree = new ViolationSourceCodeTree(prevFile, startLine, endLine);kkk
 				alarmTree.locateParentNode(violationType);
 				int violationStartLine = alarmTree.getViolationFinalStartLine();
 				violation.setBugStartLineNum(violationStartLine);

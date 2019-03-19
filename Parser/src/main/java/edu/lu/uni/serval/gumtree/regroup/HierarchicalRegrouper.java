@@ -21,7 +21,9 @@ import edu.lu.uni.serval.utils.ListSorter;
  *
  */
 public class HierarchicalRegrouper {
-	
+	/**
+	 * 将gumtree的结果进行重组,看一看结果如何
+	 */
 	public List<HierarchicalActionSet> regroupGumTreeResults(List<Action> actions) {
 		/*
 		 * First, sort actions by their positions.
@@ -37,8 +39,9 @@ public class HierarchicalRegrouper {
 		List<HierarchicalActionSet> actionSets = new ArrayList<>();
 		HierarchicalActionSet actionSet = null;
 		for(Action act : actions){
-			Action parentAct = findParentAction(act, actions);
+			Action parentAct = findParentAction(act, actions);  //寻找父动作
 			if (parentAct == null) {
+				//这个还好,因为父动作,和父亲都是null
 				actionSet = createActionSet(act, parentAct, null);
 				actionSets.add(actionSet);
 			} else {
@@ -75,7 +78,13 @@ public class HierarchicalRegrouper {
 		}
 		return reActionSets;
 	}
-
+	/**
+	 * 
+	 * @param act ast动作
+	 * @param parentAct  父动作
+	 * @param parent 父动作集
+	 * @return
+	 */
 	private HierarchicalActionSet createActionSet(Action act, Action parentAct, HierarchicalActionSet parent) {
 		HierarchicalActionSet actionSet = new HierarchicalActionSet();
 		actionSet.setAction(act);
@@ -160,13 +169,20 @@ public class HierarchicalRegrouper {
 			actionSet.setSubActions(subActions);
 		}
 	}
-
+	/**尝试讲act添加到actionSets里面
+	 * 
+	 * @param act
+	 * @param parentAct
+	 * @param actionSets
+	 * @return
+	 */
 	private boolean addToAactionSet(Action act, Action parentAct, List<HierarchicalActionSet> actionSets) {
 		for(HierarchicalActionSet actionSet : actionSets) {
 			Action action = actionSet.getAction();
 			
 			if (!areRelatedActions(action, act)) continue;
 			
+			//若是其父动作
 			if (action.equals(parentAct)) { // actionSet is the parent of actSet.
 				HierarchicalActionSet actSet = createActionSet(act, actionSet.getAction(), actionSet);
 				actionSet.getSubActions().add(actSet);
@@ -196,7 +212,9 @@ public class HierarchicalRegrouper {
 		if (action instanceof Addition) {
 			parent = ((Addition) action).getParent(); // parent in the fixed source code tree
 		}
-		
+		/**
+		 * 55则表明 父节点是一个类的声明
+		 */
 		if (parent.getType() == 55)  {//TypeDeclaration
 			/*
 			 * If the parent node is a class declaration node,

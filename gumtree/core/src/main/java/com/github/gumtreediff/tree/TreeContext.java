@@ -85,6 +85,7 @@ public class TreeContext {
 
     public void validate() {
         root.refresh();
+        //后续遍历
         TreeUtils.postOrderNumbering(root);
     }
 
