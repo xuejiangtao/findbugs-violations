@@ -62,6 +62,7 @@ public class ViolationCodeParser {
 			String fileName = javaFile.getName().replace(".java", ".txt");
 			fileName = fileName.substring(subIndex);
 			
+			//读取文件中的缺陷
 			List<ViolationInstance> violations = readViolationInfo(positionFilesPath + fileName);
 			
 			for (ViolationInstance violation : violations) {
@@ -74,8 +75,8 @@ public class ViolationCodeParser {
 //					continue;
 //				}
 				
-				ViolationSourceCodeTree violationTree = new ViolationSourceCodeTree(javaFile, startLine, endLine);
-				violationTree.extract();
+				ViolationSourceCodeTree violationTree = new ViolationSourceCodeTree(javaFile, startLine, endLine); //在这一步只是创了一个Compilationunit
+				violationTree.extract();  //提取到了缺陷代码的AST树
 				List<ITree> matchedTrees = violationTree.getViolationSourceCodeTrees();
 				if (matchedTrees.size() == 0) {
 					System.out.println(fileName + " == " + startLine + " : " + endLine);

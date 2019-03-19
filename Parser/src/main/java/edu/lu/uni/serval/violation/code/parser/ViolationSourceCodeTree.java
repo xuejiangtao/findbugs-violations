@@ -13,6 +13,7 @@ import edu.lu.uni.serval.diff.parser.utils.NodeChecker;
 import edu.lu.uni.serval.gumtree.GumTreeGenerator;
 import edu.lu.uni.serval.gumtree.GumTreeGenerator.GumTreeType;
 
+
 public class ViolationSourceCodeTree {
 
 	private File file;
@@ -33,6 +34,7 @@ public class ViolationSourceCodeTree {
 	int enumPosition = 0;
 	int enumConsP = 0;
 	
+	//创建缺陷代码AST
 	public ViolationSourceCodeTree(File file, int violationStartLine, int violationEndLine) {
 		super();
 		this.file = file;
@@ -40,7 +42,7 @@ public class ViolationSourceCodeTree {
 		this.violationEndLine = violationEndLine;
 		
 		CUCreator cuCreator = new CUCreator();
-		this.cUnit = cuCreator.createCompilationUnit(this.file);
+		this.cUnit = cuCreator.createCompilationUnit(this.file); //创建一个语法树的根节点
 	}
 	
 	public ViolationSourceCodeTree(String fileName, int violationStartLine, int violationEndLine) {
@@ -76,9 +78,10 @@ public class ViolationSourceCodeTree {
 			int endPosition = startPosition + tree.getLength();
 			int endLine = cUnit.getLineNumber(endPosition - 1);
 			if (endLine < violationStartLine) continue;
+			//找到了开始的位置
 			
 			// FIXME the violation occurred in the Class Name
-			matchTrees(tree.getChildren());
+			matchTrees(tree.getChildren());//将缺陷开始的节点的子树传入  去寻找缺陷终止
 		}
 		
 		int size = matchedTrees.size();
@@ -140,6 +143,9 @@ public class ViolationSourceCodeTree {
 			int endLine = cUnit.getLineNumber(endPosition);
 			if (endLine < violationStartLine) continue;
 			
+			/**
+			 * 找到了缺陷代码的位置 讲缺陷的AST树存储到matchedTrees
+			 * */
 			if (endLine == violationEndLine) {
 				if (tree.getType() == 31) { // MethodDeclaration
 					matchTrees(tree.getChildren());
