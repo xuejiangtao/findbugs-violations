@@ -15,8 +15,8 @@ import com.github.gumtreediff.tree.ITree;
 public class HierarchicalActionSet implements Comparable<HierarchicalActionSet> {
 	
 	private String astNodeType;  //节点类型
-	private Action action;
-	private Action parentAction;
+	private Action action;    //编辑动作
+	private Action parentAction; // 父动作
 	private String actionString;
 	private Integer startPosition;
 	private Integer length;
