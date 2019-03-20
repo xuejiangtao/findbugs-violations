@@ -366,9 +366,10 @@ public class HunkActionFilter {
 		
 		List<ViolationInstance> selectedViolations = new ArrayList<>();
 		
-		CUCreator cuCreator = new CUCreator();
+		CUCreator cuCreator = new CUCreator();  //这个的作用???
 		CompilationUnit prevUnit = cuCreator.createCompilationUnit(prevFile);
 		CompilationUnit revUnit = cuCreator.createCompilationUnit(revFile);
+		//排除空的情况
 		if (prevUnit == null || revUnit == null) {
 			for (ViolationInstance violation : violations) {
 				this.unfixedViolations += "#NullMatchedGumTreeResult:"  + revFile.getName() + ":" +violation.getStartLineNum() + ":" + 
@@ -378,6 +379,7 @@ public class HunkActionFilter {
 		}
 		
 		for (ViolationInstance violation : violations) {
+			//针对每一个缺陷进行一次筛选
 			int violationStartLine = violation.getStartLineNum();
 			int violationEndLine = violation.getEndLineNum();
 			int bugHunkStartLine = violation.getBugStartLineNum();
@@ -442,6 +444,9 @@ public class HunkActionFilter {
 		}
 		return selectedViolations;
 	}
+	
+	
+	
 	public String unfixedViolations = "";
 	
 	private boolean specialVioaltionTypes(ViolationInstance violation, List<HierarchicalActionSet> actionSets, CompilationUnit prevUnit, CompilationUnit revUnit) {

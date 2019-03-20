@@ -51,6 +51,9 @@ public class FixedViolationHunkParser extends FixedViolationParser {
 		setPositionFile(positionFile);
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void parseCodeChangeDiffs(File prevFile, File revFile, File diffentryFile) {
 		List<ViolationInstance> allViolations = readViolations(prevFile, revFile);
@@ -71,12 +74,14 @@ public class FixedViolationHunkParser extends FixedViolationParser {
 				this.unfixedViolations += type + revFile.getName() + ":" + v.getStartLineNum() + ":" + v.getEndLineNum() + ":" + v.getViolationType() + "\n";
 			}
 		} else {
+			//拿到正常编译的ast动作序列后进行操作
 			List<DiffEntryHunk> diffentryHunks = new DiffEntryReader().readHunks2(diffentryFile);
 			// Identify DiffEntry hunks by positions of violations.
 			List<ViolationInstance> violations = identifyFixRangeHeuristically(allViolations, diffentryHunks, revFile);
 
-			//Filter out the modify actions, which are not in the DiffEntry hunks.
+			//Filter out the modify actions, which are not in the DiffEntry hunks.  过滤不相关的编辑动作
 			HunkActionFilter hunkFilter = new HunkActionFilter();
+			//详细的筛选过程试试
 			List<ViolationInstance> selectedViolations = hunkFilter.filterActionsByModifiedRange2(violations, actionSets, revFile, prevFile);
 			this.unfixedViolations += hunkFilter.unfixedViolations;
 			this.nullMappingGumTreeResult += violations.size() - selectedViolations.size();

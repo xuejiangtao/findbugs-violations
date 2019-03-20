@@ -110,7 +110,7 @@ public class FixedViolationParser extends Parser {
 				int startLine = Integer.parseInt(positionStr[1]);
 				int endLine = Integer.parseInt(positionStr[2]);
 				String violationType = positionStr[0];
-				
+				//缺陷的实体  包括 文件,起始位置,终止位置,以及缺陷类型
 				ViolationInstance violation = new ViolationInstance(startLine, endLine, violationType);
 				violation.setFileName(fileName);
 				
@@ -124,7 +124,7 @@ public class FixedViolationParser extends Parser {
 				 *  Get the parent range of a violation.
 				 *  Read DiffEntries with this range to get the start line and end line of a violation.
 				 */
-				ViolationSourceCodeTree alarmTree = new ViolationSourceCodeTree(prevFile, startLine, endLine);kkk
+				ViolationSourceCodeTree alarmTree = new ViolationSourceCodeTree(prevFile, startLine, endLine);  //创建缺陷代码的语法树
 				alarmTree.locateParentNode(violationType);
 				int violationStartLine = alarmTree.getViolationFinalStartLine();
 				violation.setBugStartLineNum(violationStartLine);

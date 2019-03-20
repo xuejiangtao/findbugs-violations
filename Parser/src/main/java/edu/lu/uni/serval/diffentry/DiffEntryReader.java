@@ -102,7 +102,7 @@ public class DiffEntryReader {
 			boolean sourceCode = false;
 			
 			while ((line = reader.readLine()) != null) {
-				if (RegExp.filterSignal(line.trim())) {
+				if (RegExp.filterSignal(line.trim())) { //trim方法去掉代码中的制表符,空格,换行符等    filterSignal方法判断该行是否是@@ -21,0 +22,2 @@
 					sourceCode = true;
 					if (hunk.length() > 0) {
 						if (startLine > 0) {

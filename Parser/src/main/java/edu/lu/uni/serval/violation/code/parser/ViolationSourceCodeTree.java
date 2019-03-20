@@ -265,11 +265,14 @@ public class ViolationSourceCodeTree {
 		if (NodeChecker.isStatement(type)) return true;
 		return false;
 	}
-
+	/**
+	 * 
+	 * @param type
+	 */
 	public void locateParentNode(String type) {
 		ITree rootTree = new GumTreeGenerator().generateITreeForJavaFile(file, GumTreeType.EXP_JDT);
 		
-		List<ITree> trees = rootTree.getChildren();
+		List<ITree> trees = rootTree.getChildren();  //根节点的子节点
 		for (ITree tree : trees) {
 			int startPosition = tree.getPos();
 			int startLine = cUnit.getLineNumber(startPosition);
@@ -285,7 +288,7 @@ public class ViolationSourceCodeTree {
 				this.violationFinalStartLine = startLine;
 				this.violationFinalEndLine = endLine;
 			}
-			locateParentNode(tree.getChildren(), type);
+			locateParentNode(tree.getChildren(), type); //
 		}
 	}
 
