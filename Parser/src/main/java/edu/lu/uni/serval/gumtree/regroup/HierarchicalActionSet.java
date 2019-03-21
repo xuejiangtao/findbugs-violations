@@ -17,15 +17,15 @@ public class HierarchicalActionSet implements Comparable<HierarchicalActionSet> 
 	private String astNodeType;  //节点类型
 	private Action action;    //编辑动作
 	private Action parentAction; // 父动作
-	private String actionString;
-	private Integer startPosition;
-	private Integer length;
-	private int bugStartLineNum = 0;
-	private int bugEndLineNum;
-	private int fixStartLineNum;
-	private int fixEndLineNum;
-	private HierarchicalActionSet parent = null;
-	private List<HierarchicalActionSet>	subActions = new ArrayList<>();
+	private String actionString;//action.toString()
+	private Integer startPosition; // 开始位置(应该是在语法树中的位置)
+	private Integer length;  //长度??
+	private int bugStartLineNum = 0;   //修复前开始的行号
+	private int bugEndLineNum;  //修复前原文件结束的行号
+	private int fixStartLineNum;   //修复后的开始行号
+	private int fixEndLineNum;//修复后的结束行号
+	private HierarchicalActionSet parent = null; //父层次动作
+	private List<HierarchicalActionSet>	subActions = new ArrayList<>();  //子层次动作
 	
 	private ITree node;
 	private SimpleTree abstractSimpleTree =  null;     // semi-source code tree. and AST node type tree

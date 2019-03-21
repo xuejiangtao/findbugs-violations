@@ -18,7 +18,7 @@ import edu.lu.uni.serval.utils.FileHelper;
 
 /**
  * Prepare data for mining common patterns of fixed violations.
- * 
+ * 为挖掘通用pattern做数据处理
  * Pattern of fixed violation code.
  * 
  * @author kui.liu

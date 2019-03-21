@@ -665,7 +665,13 @@ public class HunkActionFilter {
 		}
 		return selectedViolations;
 	}
-
+	/**
+	 * 对层次化action的所在位置进行计算
+	 * @param actionSet  目标action
+	 * @param prevUnit  
+	 * @param revUnit
+	 * @return
+	 */
 	private int setLineNumbers(HierarchicalActionSet actionSet, CompilationUnit prevUnit, CompilationUnit revUnit) {
 		int actionBugStartLine;
 		int actionBugEndLine;
@@ -680,7 +686,7 @@ public class HunkActionFilter {
 		int fixEndPosition = 0;
 		
 		String actionStr = actionSet.getActionString();
-		if (actionStr.startsWith("INS")) {
+		if (actionStr.startsWith("INS")) {//处理插入节点操作
 			fixStartPosition = actionSet.getStartPosition();
 			fixEndPosition = fixStartPosition + actionSet.getLength();
 
