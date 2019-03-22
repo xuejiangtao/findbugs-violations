@@ -127,7 +127,10 @@ public class DataPreparer {
 		System.err.println(types.size());
 		return types;
 	}
-
+	/**
+	 * 
+	 * @param filePath
+	 */
 	public void mergeData(String filePath) {
 		// Sub-directory: Sizes, SourceCode, and Tokens
 		String allSourceCodeFile = filePath + "SourceCode.list";
